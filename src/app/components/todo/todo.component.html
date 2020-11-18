@@ -1,0 +1,59 @@
+<div>
+    <h1>ToDo</h1>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="addTodo()">
+        <div class="row">
+            <!-- <label for="description">Description: </label>
+            <input type="text" name="description" formControlName="description"> -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" formControlName="description">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <!-- <label for="priority">Priority: </label>
+            <input type="radio" name="priority" value="High" formControlName="priority">High
+            <input type="radio" name="priority" value="Medium" formControlName="priority">Medium
+            <input type="radio" name="priority" value="Low" formControlName="priority">Low -->
+            <mat-radio-group aria-label="Select an option" formControlName="priority">
+                <mat-label>Priority: </mat-label>
+                <mat-radio-button value="High">High</mat-radio-button>
+                <mat-radio-button value="Medium">Medium</mat-radio-button>
+                <mat-radio-button value="Low">Low</mat-radio-button>
+                </mat-radio-group>
+        </div>
+        <div class="row">
+            <label for="due">Due: </label>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="due">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <button class="pull-right" mat-raised-button color="primary" type="submit">Add</button>
+        </div>
+        
+    </form>
+</div>
+<hr>
+<div>
+    <h1>Task</h1>
+    <mat-card [ngClass]="{'d-none': t.completed }" class="margin-10" *ngFor="let t of task; let i = index">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-checkbox class="example-margin" [(ngModel)]="task[i].completed" (change)="toggleTodoComplete(i)">Complete</mat-checkbox>
+            </div>
+            <div class="col-8">
+                <mat-card-title>{{t.description}}</mat-card-title>
+                <div class="date-priority">{{t.priority}}</div>
+            </div>
+            <div class="col-2">
+                <div>
+                    <button class="pull-right" mat-raised-button color="warn" (click)="onDeleteTodo(i)">X</button>
+                </div>
+                <div class="date-content">{{t.due}}</div>
+            </div>
+        </div>
+    </mat-card>
+</div>
